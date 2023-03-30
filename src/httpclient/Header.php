@@ -9,7 +9,7 @@
 // | Author: axguowen <axguowen@qq.com>
 // +----------------------------------------------------------------------
 
-namespace axguowen\http;
+namespace axguowen\httpclient;
 
 class Header implements \ArrayAccess, \IteratorAggregate, \Countable
 {

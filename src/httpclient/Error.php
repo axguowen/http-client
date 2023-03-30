@@ -9,7 +9,7 @@
 // | Author: axguowen <axguowen@qq.com>
 // +----------------------------------------------------------------------
 
-namespace axguowen\http;
+namespace axguowen\httpclient;
 
 /**
  * 业务请求逻辑错误封装类，主要用来解析API请求返回如下的内容：

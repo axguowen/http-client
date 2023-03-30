@@ -11,9 +11,9 @@
 
 namespace axguowen;
 
-use axguowen\http\Header;
-use axguowen\http\Request;
-use axguowen\http\Response;
+use axguowen\httpclient\Header;
+use axguowen\httpclient\Request;
+use axguowen\httpclient\Response;
 
 class HttpClient
 {
