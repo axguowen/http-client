@@ -1,0 +1,19 @@
+{
+    "name": "axguowen/http-client",
+    "description": "Simple HTTP Client Library for PHP",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "axguowen",
+            "email": "axguowen@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "axguowen\\": "src"
+        }
+    }
+}
