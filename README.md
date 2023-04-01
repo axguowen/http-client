@@ -26,7 +26,7 @@ $headers = [
 // 发送请求
 $ret = \axguowen\HttpClient::post($url, $headers);
 if (!$ret->ok()) {
-    return [null, new Error($path, $ret)];
+    return [null, new \axguowen\httpclient\Error($path, $ret)];
 }
 $r = ($ret->body === null) ? [] : $ret->json();
 
@@ -49,7 +49,7 @@ $headers = [
 // 发送请求
 $ret = \axguowen\HttpClient::post($url, $body, $headers);
 if (!$ret->ok()) {
-    return [null, new Error($path, $ret)];
+    return [null, new \axguowen\httpclient\Error($path, $ret)];
 }
 $r = ($ret->body === null) ? [] : $ret->json();
 
