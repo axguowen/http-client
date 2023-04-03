@@ -72,6 +72,20 @@ class HttpClient
     }
 
     /**
+     * 发送PATCH请求
+     * @access public
+     * @param string $url 请求地址
+     * @param string|array $body 请求体
+     * @param array $headers 请求头参数
+     * @return Response
+     */
+    public static function patch($url, $body, $headers = [])
+    {
+        $request = new Request('PATCH', $url, $headers, $body);
+        return self::sendRequest($request);
+    }
+
+    /**
      * 发送表单类型POST请求
      * @access public
      * @param string $url 请求地址
