@@ -151,30 +151,34 @@ class Response
         }
         $this->normalizedHeaders = new Header($headers);
 
+        // 如果返回null
         if ($body === null) {
             if ($code >= 400) {
                 $this->error = self::$statusTexts[$code];
             }
             return;
         }
-        if (self::isJson($this->normalizedHeaders)) {
-            try {
-                $jsonData = self::bodyJsonDecode($body);
-                if ($code >= 400) {
-                    $this->error = $body;
-                    if ($jsonData['error'] !== null) {
-                        $this->error = $jsonData['error'];
-                    }
+
+        // json反序列化
+        try {
+            // 反序列化成功
+            $jsonData = self::bodyJsonDecode($body);
+            // 如果状态码为错误
+            if ($code >= 400) {
+                $this->error = $body;
+                if ($jsonData['error'] !== null) {
+                    $this->error = $jsonData['error'];
                 }
-                $this->jsonData = $jsonData;
-            } catch (\InvalidArgumentException $e) {
+            }
+            $this->jsonData = $jsonData;
+        } catch (\InvalidArgumentException $e) {
+            // 反序列化失败且响应头信息明确是json响应
+            if (self::isJson($this->normalizedHeaders)) {
                 $this->error = $body;
                 if ($code >= 200 && $code < 300) {
                     $this->error = $e->getMessage();
                 }
             }
-        } elseif ($code >= 400) {
-            $this->error = $body;
         }
         return;
     }
