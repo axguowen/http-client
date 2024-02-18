@@ -165,9 +165,15 @@ class Response
             $jsonData = self::bodyJsonDecode($body);
             // 如果状态码为错误
             if ($code >= 400) {
+                // 记录错误信息
                 $this->error = $body;
-                if ($jsonData['error'] !== null) {
+                // 存在error字段
+                if (isset($jsonData['error'])) {
                     $this->error = $jsonData['error'];
+                }
+                // 存在message字段
+                elseif (isset($jsonData['message'])) {
+                    $this->error = $jsonData['message'];
                 }
             }
             $this->jsonData = $jsonData;
