@@ -38,6 +38,12 @@ class Request
     public $method;
 
     /**
+     * 请求超时时间
+     * @var int
+     */
+    public $timeout;
+
+    /**
      * 架构函数
      * @access public
      * @param string $method 请求方法
@@ -45,11 +51,12 @@ class Request
      * @param array $headers 请求头参数
      * @param array|string $data 请求体
      */
-    public function __construct($method, $url, $headers = [], $body = null)
+    public function __construct($method, $url, $headers = [], $body = null, $timeout = 0)
     {
         $this->method = strtoupper($method);
         $this->url = $url;
         $this->headers = $headers;
         $this->body = $body;
+        $this->timeout = $timeout;
     }
 }

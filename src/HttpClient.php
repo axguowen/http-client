@@ -22,11 +22,12 @@ class HttpClient
      * @access public
      * @param string $url 请求地址
      * @param array $headers 请求头参数
+     * @param int $timeout 超时时间
      * @return Response
      */
-    public static function get($url, $headers = [])
+    public static function get($url, $headers = [], $timeout = 0)
     {
-        $request = new Request('GET', $url, $headers);
+        $request = new Request('GET', $url, $headers, $timeout);
         return self::sendRequest($request);
     }
 
@@ -35,11 +36,12 @@ class HttpClient
      * @access public
      * @param string $url 请求地址
      * @param array $headers 请求头参数
+     * @param int $timeout 超时时间
      * @return Response
      */
-    public static function delete($url, $headers = [])
+    public static function delete($url, $headers = [], $timeout = 0)
     {
-        $request = new Request('DELETE', $url, $headers);
+        $request = new Request('DELETE', $url, $headers, $timeout);
         return self::sendRequest($request);
     }
 
@@ -49,11 +51,12 @@ class HttpClient
      * @param string $url 请求地址
      * @param string|array $body 请求体
      * @param array $headers 请求头参数
+     * @param int $timeout 超时时间
      * @return Response
      */
-    public static function post($url, $body, $headers = [])
+    public static function post($url, $body, $headers = [], $timeout = 0)
     {
-        $request = new Request('POST', $url, $headers, $body);
+        $request = new Request('POST', $url, $headers, $body, $timeout);
         return self::sendRequest($request);
     }
 
@@ -63,11 +66,12 @@ class HttpClient
      * @param string $url 请求地址
      * @param string|array $body 请求体
      * @param array $headers 请求头参数
+     * @param int $timeout 超时时间
      * @return Response
      */
-    public static function put($url, $body, $headers = [])
+    public static function put($url, $body, $headers = [], $timeout = 0)
     {
-        $request = new Request('PUT', $url, $headers, $body);
+        $request = new Request('PUT', $url, $headers, $body, $timeout);
         return self::sendRequest($request);
     }
 
@@ -77,11 +81,12 @@ class HttpClient
      * @param string $url 请求地址
      * @param string|array $body 请求体
      * @param array $headers 请求头参数
+     * @param int $timeout 超时时间
      * @return Response
      */
-    public static function patch($url, $body, $headers = [])
+    public static function patch($url, $body, $headers = [], $timeout = 0)
     {
-        $request = new Request('PATCH', $url, $headers, $body);
+        $request = new Request('PATCH', $url, $headers, $body, $timeout);
         return self::sendRequest($request);
     }
 
@@ -95,6 +100,7 @@ class HttpClient
      * @param string $fileBody 上传文件内容
      * @param string $mimeType MIME类型
      * @param array $headers 请求头参数
+     * @param int $timeout 超时时间
      * @return Response
      */
     public static function multipartPost(
@@ -104,7 +110,8 @@ class HttpClient
         $fileName,
         $fileBody,
         $mimeType = null,
-        $headers = []
+        $headers = [],
+        $timeout = 0
     ) {
         $data = [];
         $mimeBoundary = md5(microtime());
@@ -131,7 +138,7 @@ class HttpClient
         // var_dump($data);exit;
         $contentType = 'multipart/form-data; boundary=' . $mimeBoundary;
         $headers['Content-Type'] = $contentType;
-        $request = new Request('POST', $url, $headers, $body);
+        $request = new Request('POST', $url, $headers, $body, $timeout);
         return self::sendRequest($request);
     }
 
@@ -186,6 +193,9 @@ class HttpClient
                 array_push($headers, "$key: $val");
             }
             $options[CURLOPT_HTTPHEADER] = $headers;
+        }
+        if ($request->timeout > 0) {
+            $options[CURLOPT_TIMEOUT] = $request->timeout;
         }
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
         if (!empty($request->body)) {
