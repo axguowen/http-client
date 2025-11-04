@@ -116,6 +116,7 @@ class Header implements \ArrayAccess, \IteratorAggregate, \Countable
      * @param $offset string
      * @return boolean
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         $key = self::normalizeKey($offset);
@@ -126,6 +127,7 @@ class Header implements \ArrayAccess, \IteratorAggregate, \Countable
      * @param $offset string
      * @return string|null
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         $key = self::normalizeKey($offset);
@@ -141,6 +143,7 @@ class Header implements \ArrayAccess, \IteratorAggregate, \Countable
      * @param $value string
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         $key = self::normalizeKey($offset);
@@ -154,6 +157,7 @@ class Header implements \ArrayAccess, \IteratorAggregate, \Countable
     /**
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         $key = self::normalizeKey($offset);
@@ -163,6 +167,7 @@ class Header implements \ArrayAccess, \IteratorAggregate, \Countable
     /**
      * @return \ArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         $arr = [];
@@ -175,6 +180,7 @@ class Header implements \ArrayAccess, \IteratorAggregate, \Countable
     /**
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->data);
